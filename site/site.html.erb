@@ -278,5 +278,16 @@ for (let i = 0; i < 15; i++) {
 }
 addRandomStar(".sky .ex1");
 addRandomStar(".sky .ex2");
+
+
+const scroll = document.querySelector(".scroll");
+window.addEventListener("mousewheel", e => {
+    console.log(e)
+    if (e.deltaX === 0) {
+        e.stopPropagation()
+        e.preventDefault()
+        scroll.scrollBy(e.deltaY, 0)
+    }
+})
 </script>
 </body>
