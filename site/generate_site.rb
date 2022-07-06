@@ -50,8 +50,8 @@ def colored issues
     issues.each do |issue|
         res << {
             type: "negai",
-            url: issue[:url],
-            text: issue[:title],
+            url: ERB::Util.h(issue[:url]),
+            text: ERB::Util.h(issue[:title]),
             color: random_color[],
         }
         if rand(3) == 0
