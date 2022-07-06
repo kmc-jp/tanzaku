@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ja">
+ 
+<head>
+  <meta charset="utf-8">
+  <title>短冊ギャラリー</title>
+  <meta name="description" content="短冊ギャラリー">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+  <meta property="og:title" content="短冊ギャラリー">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kaisei+Opti&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%%22 y=%2250%%22 style=%22dominant-baseline:central;text-anchor:middle;font-size:90px;%22>⭐</text></svg>">
+</head>
+<body>
+<div class="skyback">
+  <div class="sky">
+    <div class="small"></div>
+    <div class="large"></div>
+    <div class="huge"></div>
+    <div class="ex1"></div>
+    <div class="ex2"></div>
+    <div class="bottom"><p><a href="https://codepen.io/mattmarble/pen/qBdamQzc">Idea Stars</a> </p></div>
+  </div>
+</div>
+<div class="scroll">
+<div class="main">
+  <% negais.each do |negai| %>
+    <% if negai[:type] == "negai" %>
+      <div class="tanzaku <%= negai[:color] %>">
+        <div class="string"></div>
+        <div class="top">
+          <div class="topS"></div>
+          <div class="topH"></div>
+          <div class="topS"></div>
+        </div>
+        <a href="<%= negai[:url] %>"><div class="text"><p><%= negai[:text] %></p></div></a>
+      </div>
+    <% elsif negai[:type] == "kazari" %>
+      <div class="sankakus">
+        <div class="string"></div>
+        <% negai[:colors].each do |color| %>
+          <div class="sankaku <%= color %>"></div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<style>
+html {
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+}
+body {
+  padidng: 0;
+  margin: 0;
+}
+a {
+  color: unset;
+  text-decoration: unset;
+}
+.scroll {
+  height: 100vh;
+  width: 100vw;
+  overflow-x: scroll; 
+  overflow-y: scroll;
+  background: rgba(0, 0, 0, 0.01);s
+}
+.main {
+  display: flex;
+  gap: 3rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+.tanzaku {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  animation: yure 2.5s infinite cubic-bezier(0.250, 0.460, 0.450, 0.940) both alternate;
+  transform-origin: top left;
+
+  font-family: 'Kaisei Opti', serif;
+}
+.string {
+  height: 10rem;
+  width: 1rem;
+  background-color: rgba(224, 195, 140, 1);
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(244, 221, 165, 1) 10px, rgba(244, 221, 165, 1) 20px );
+  margin-bottom: -3rem;
+  z-index: 1;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+.top {
+  display: flex;
+}
+.topS {
+  height: 5rem;
+  width: 5rem;
+  background: var(--c);
+}
+.topH {
+  background:
+    radial-gradient(transparent, transparent 1rem, var(--c) 1rem, var(--c));
+  height: 5rem;
+  width: 5rem;
+}
+.text  {
+  height: 40rem;
+  width: 15rem;
+  background: var(--c);
+  font-size: 250%;
+  writing-mode: vertical-rl;
+  display: flex;
+}
+.text > p {
+    margin: 0 auto;
+    padding: 3rem 0;
+    opacity: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 11rem;
+}
+.sankakus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: yure 2s infinite cubic-bezier(0.250, 0.460, 0.450, 0.940) both alternate;
+  transform-origin: top left;
+}
+.sankaku {
+  background: var(--c);
+  height: 8rem;
+  width: 15rem;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  margin-bottom: -1rem;
+}
+.c1 {
+  --c: #e597b2;
+}
+.c2 {
+  --c: #c3d825;
+}
+.c3 {
+  --c: #f6ad49;
+}
+.c4 {
+  --c: #5a79ba;
+}
+.c5 {
+  --c: #68be8d;
+}
+
+
+@keyframes yure {
+  0% {
+    transform: rotateZ(0deg) rotateX(0deg);
+  }
+  100% {
+    transform: rotateZ(1deg) rotateX(-10deg);
+  }
+}
+
+.skyback {
+  position: absolute;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+}
+.sky {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+.bottom {
+  heigth: 100vh;
+  width: 100wh;
+  position: relative;
+}
+.bottom > p {
+  bottom: 0;
+  position: absolute;
+  margin-left: 1rem;
+  color: #fff;
+  opacity: 60%;
+  transition: 0.2s opacity;
+}
+.bottom > p:hover {
+  opacity: 90%;
+}
+.sky > div {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+}
+.small > div {
+  height: 1px;
+  width: 1px;
+  background: #fff;
+  opacity: 90%;
+  position: absolute;
+}
+.large > div {
+  height: 2px;
+  width: 2px;
+  background: #fff;
+  opacity: 90%;
+  position: absolute;
+}
+.huge > div {
+  height: 3px;
+  width: 3px;
+  background: #fff;
+  opacity: 90%;
+  position: absolute;
+}
+.ex1 > div{
+  height: 3px;
+  width: 3px;
+  background: #fff;
+  box-shadow: 0 0 3px #2ff;
+  position: absolute;
+}
+.ex2 > div {
+  height: 3px;
+  width: 3px;
+  background: #fff;
+  box-shadow: 0 0 3px #f2f;
+  position: absolute;
+}
+.small {
+  animation: 90s infinite star;
+}
+.large {
+  animation: 60s infinite star;
+}
+.huge {
+  animation: 45s infinite star;
+}
+.ex1 {
+  animation: 45s infinite star;
+}
+.ex2 {
+  animation: 45s infinite star;
+}
+
+@keyframes star {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100vw);
+  }
+}
+</style>
+<script>
+const addDiv = (clas, y, x) => {
+  const div = document.createElement("div");
+  div.style.top = `${y*100}%`;
+  div.style.left = `${x*100}%`;
+  document.querySelector(clas).append(div);
+}
+const addRandomStar = (clas) => {
+  const y = Math.random();
+  const x = Math.random()*2;
+  addDiv(clas, y, x);
+  addDiv(clas, y, x+1);
+}
+for (let i = 0; i < 100; i++) {
+  addRandomStar(".sky .small");
+}
+for (let i = 0; i < 50; i++) {
+  addRandomStar(".sky .large");
+}
+for (let i = 0; i < 15; i++) {
+  addRandomStar(".sky .huge");
+}
+addRandomStar(".sky .ex1");
+addRandomStar(".sky .ex2");
+</script>
+</body>

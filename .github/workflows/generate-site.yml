@@ -1,0 +1,25 @@
+on:
+  issues:
+    types: [opened, edited, closed]
+
+jobs:
+  GenerateSite:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-ruby@v1
+    - uses: actions/checkout@v2
+
+    - name: Generate Site
+      run: ruby site/generate_site.rb
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+
+    - name: Check Site
+      run: ls site/dist
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site/dist
